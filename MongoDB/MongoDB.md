@@ -88,11 +88,11 @@ var users={"username":"joe",
   * 从数据开头删除一元素<br/>```{$pop:{key:-11}}```
   * 删除一个数组内等于val的值<br/>```{$pull:{key:val}}```
   * 删除多个数组内等于val的值<br/>```{$pullAll:{key:[val1,val2,val2]}}```
-
+```
 db.lists.insert({"todo":["dishes","laundry","dry cleaning"]}) 
 db.lists.find()
 db.lists.update({},{"$pull":{"todo":"laundry"}})
-
+```
 6. 基于位置的修改可以使用定位操作符\$  
   如: <br/>```db.blog.plogs.update({"post","post_id"},{"$inc":"comments.0.votes":1}) ```  
    实际在数据库中，数组的下标很难确定，我们采用<br/>```db.blog.update({"comments.author":"Jim"},{"$set":{"comments.$.author":"Wade"}}) ```
