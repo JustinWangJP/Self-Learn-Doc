@@ -43,6 +43,10 @@
      }
     return false;
     ```
+3.  sort({arg1}:[0|1])排序函数  
+    1: 升序  
+    0： 降序  
+
 ## 修改器总结
 1. \"\$set\":用来制定一个字段值，若不存在，则创建
    * 一般用于点加一个字段  
@@ -118,7 +122,10 @@ db.lists.update({},{"$pull":{"todo":"laundry"}})
 
 6. 基于位置的修改可以使用定位操作符\$  
   如: <br/>```db.blog.plogs.update({"post","post_id"},{"$inc":"comments.0.votes":1}) ```  
-   实际在数据库中，数组的下标很难确定，我们采用<br/>```db.blog.update({"comments.author":"Jim"},{"$set":{"comments.$.author":"Wade"}}) ```
+   实际在数据库中，数组的下标很难确定，我们采用:    
+   ```
+   db.blog.update({"comments.author":"Jim"},{"$set":{"comments.$.author":"Wade"}})
+   ```
 
 7. \$type 操作符
 
