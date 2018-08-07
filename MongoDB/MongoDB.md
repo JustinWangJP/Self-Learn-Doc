@@ -10,7 +10,7 @@
 2. find({arg1},{arg2})
   * arg1:条件
   * arg2:射影
-  * 搜索操作符  
+  * 搜索操作符    
     + (>) 大于 - $gt
     + (<) 小于 - $lt
     + (>=) 大于等于 - $gte
@@ -18,8 +18,31 @@
   * 正则表达式
     + \^ : 匹配开头
     + \$ : 匹配结尾
+  
+  * 数组子元素进行匹配,有两种方式。  
+    + 使用 “[数组名].[子元素字段名]” 的方式进行匹配。
+    + 使用 “[数组名]” $elemMatch { [子元素字段名] }的方式。
 
-
+  * 数组查询
+    + \$all同时匹配多个元素
+      - ```db.users.find({"uname":{"$all":["AAA","BBB"]}})```
+    + \$size匹配数组大小
+      - ```db.users.find({"uname":{"$size":3}})```
+    + \$slice返回数组的子集
+      - ```db.users.find({"uname":{"$slice":[2,2]}})```
+  * \$where使用注意  
+    尽量不要在分布式系统中使用\$where,因为搜索速度很慢  
+    ```
+    db.fruitprice.find({"$where":function () {
+      for(var current in this){
+        for(var other in this){
+            if(current != other && this[current] == this[other]){
+                return true;
+            }
+       }
+     }
+    return false;
+    ```
 ## 修改器总结
 1. \"\$set\":用来制定一个字段值，若不存在，则创建
    * 一般用于点加一个字段  
@@ -88,15 +111,41 @@ var users={"username":"joe",
   * 从数据开头删除一元素<br/>```{$pop:{key:-11}}```
   * 删除一个数组内等于val的值<br/>```{$pull:{key:val}}```
   * 删除多个数组内等于val的值<br/>```{$pullAll:{key:[val1,val2,val2]}}```
-```
+
 db.lists.insert({"todo":["dishes","laundry","dry cleaning"]}) 
 db.lists.find()
 db.lists.update({},{"$pull":{"todo":"laundry"}})
-```
+
 6. 基于位置的修改可以使用定位操作符\$  
   如: <br/>```db.blog.plogs.update({"post","post_id"},{"$inc":"comments.0.votes":1}) ```  
    实际在数据库中，数组的下标很难确定，我们采用<br/>```db.blog.update({"comments.author":"Jim"},{"$set":{"comments.$.author":"Wade"}}) ```
 
+7. \$type 操作符
+
+$type操作符是基于BSON类型来检索集合中匹配的数据类型，并返回结果。
+
+MongoDB 中可以使用的类型如下表所示：  
+|类型|数字|备注| 
+| --- | --- | --- | 
+|Double|1| |	 
+|String|2|	 
+|Object|3|	 
+|Array|4|	 
+|Binary data|5|	 
+|Undefined|6|已废弃。|
+|Object id|7|	 
+|Boolean|8|	 
+|Date|9|	| 
+|Null|10|	 
+|Regular Expression|11|	 
+|JavaScript|13|	 
+|Symbol|14|	 
+|JavaScript (with scope)|15|	 
+|32-bit integer|16|	 
+|Timestamp|17|	 
+|64-bit integer|18|	 
+|Min key|255|	Query with -1.|
+|Max key|127|	 
 
 ## 注意事项
 1. Null值的查找  
