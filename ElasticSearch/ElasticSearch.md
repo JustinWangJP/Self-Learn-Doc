@@ -155,26 +155,28 @@ API URL\: Post Method \<doc_api\>\/\_update
                 "filter":   { "range": { "age" : { "gt" : 30 }} }
             }
           }
-          ```
+          ```   
+   
+            一条复合语句可以合并 任何 其它查询语句，包括复合语句，了解这一点是很重要的。这就意味着，复合语句之间可以互相嵌套，可以表达非常复杂的逻辑。例如，以下查询是为了找出信件正文包含 business opportunity 的星标邮件，或者在收件箱正文包含 business opportunity 的非垃圾邮件：   
 
+            ```
+            {
+                "bool": {
+                        "must": { "match":   { "email": "business opportunity" }},
+                        "should": [
+                        { "match": 
+                            { "starred": true }
+                        },
+                        { "bool": {
+                            "must":      { "match": { "folder": "inbox" }},
+                            "must_not":  { "match": { "spam": true }}
+                            }
+                         }
+                        ],
+                        "minimum_should_match": 1
+                        }
+            }
+            ```
 
+            到目前为止，你不必太在意这个例子的细节，我们会在后面详细解释。最重要的是你要理解到，一条复合语句可以将多条语句 — 叶子语句和其它复合语句 — 合并成一个单一的查询语句。
     
-    一条复合语句可以合并 任何 其它查询语句，包括复合语句，了解这一点是很重要的。这就意味着，复合语句之间可以互相嵌套，可以表达非常复杂的逻辑。
-
-例如，以下查询是为了找出信件正文包含 business opportunity 的星标邮件，或者在收件箱正文包含 business opportunity 的非垃圾邮件：
-
-{
-    "bool": {
-        "must": { "match":   { "email": "business opportunity" }},
-        "should": [
-            { "match":       { "starred": true }},
-            { "bool": {
-                "must":      { "match": { "folder": "inbox" }},
-                "must_not":  { "match": { "spam": true }}
-            }}
-        ],
-        "minimum_should_match": 1
-    }
-}
-到目前为止，你不必太在意这个例子的细节，我们会在后面详细解释。最重要的是你要理解到，一条复合语句可以将多条语句 — 叶子语句和其它复合语句 — 合并成一个单一的查询语句。
-  
