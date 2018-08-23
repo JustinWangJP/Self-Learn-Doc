@@ -84,6 +84,7 @@ API URL\: Post Method \<doc_api\>\/\_update
   ```
 4. Mapping射影  
   * 数据类型 
+  
     |string|字符串|
     |:---|:---|
     |integer|数字|
@@ -93,7 +94,9 @@ API URL\: Post Method \<doc_api\>\/\_update
     |bool|A bool value,such as True,False|
     |date|such as:2017-02-20|
     |binary|二进制|
+    
   详细用法参照：https://blog.csdn.net/napoay/article/details/73100110
+  
   * 修改索引
     + 使用PUT方法 /现有索引/_alias/别名A
     + 新建一个索引，定义好新的映射
