@@ -4,9 +4,9 @@ Podのロードバランシング確認（NodeとそのIP情報）
 ```
 kubectl get pods -o custom-columns="Name:{metadata.name},Node:{spec.nodeName},NodeIP:{status.hostIP}"
 ```  
-externalTrafficPolicyの設定による実現が可能。
-++ Cluster(デフォルト)：PODへの負荷を均等にする。
-++ Local: ノードを跨いだロードバランシングを実施しない。
+externalTrafficPolicyの設定による実現が可能。 
++ Cluster(デフォルト)：PODへの負荷を均等にする。
++ Local: ノードを跨いだロードバランシングを実施しない。
 ```
 spec: 
   type: NodePort
