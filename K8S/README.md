@@ -43,11 +43,11 @@ volumes:
 
 + hostPath: ホスト上の任意領域をマウントすることができる。 
 type: 
-- Directory 
-- DirectoryOrCreate
-- File
-- Socket
-- BlockDevice
+  - Directory 
+  - DirectoryOrCreate
+  - File
+  - Socket
+  - BlockDevice
 ```
 volumes:
 - name: cache-volume
