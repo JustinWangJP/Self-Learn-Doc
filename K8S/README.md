@@ -42,7 +42,8 @@ volumes:
 ```
 
 + hostPath: ホスト上の任意領域をマウントすることができる。 
-type: 
+
+　type: 
   - Directory 
   - DirectoryOrCreate
   - File
@@ -91,3 +92,5 @@ volumes:
             fieldRef:
               fieldPath: metadata.name
 ```
+
+
