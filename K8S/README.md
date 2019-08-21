@@ -93,4 +93,39 @@ volumes:
               fieldPath: metadata.name
 ```
 
-
+4. PersistentVolume作成
++ 属性の定義: 
+  - ラベル
+  - 容量：capacity
+  - アクセスモード：accessModes
+     + ReadWriteOnce(RWO)
+     + ReadOnlyMany(ROX) : 複数のノードからRead可能
+     + ReadWriteMany(RWX) : 複数のノードからRead/Write可能
+  - Reclaim Policy:
+     + Delete: PVの実体が削除される。
+     + Retain: PVの実体が削除されない。
+     + Recycle:　PVの実体が削除されないがファイル・フォールターが削除される。
+  - マウントオプション：
+  - StorageClass:　確認コマンド`kubectl get storageclasses`
+  - プラグイン：gcePersistentDisk、nfs
+  
++ Example: 
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sample-pv
+  labels:
+    type: gce-pv
+    environment: stg
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  gcePersistentDisk:
+    pdName: sample-pv-disk
+    fsType: ext4
+```
