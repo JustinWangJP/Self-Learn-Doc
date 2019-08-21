@@ -139,3 +139,39 @@ metadata:
   name: sample-namespace
 ```
 + 実行CLI作成方:`kubectl create namespace sample-namespace`
+
+6. LimitRangeによるリソース制限
+
+| Type | 利用可能な設定項目 |
+| :--- | :--- |
+| Container | default/defaultRequest/max/min/maxLimitRequestRatio |
+| Pod| max/min/maxLimitRequestRatio|
+| PVC| max/min|
+
+7. オートスケーリング3種類
++ Cluster Autoscaler: Podを起動できるノードが存在しない場合、ノードを新規追加
++ HorizontalPodAutoscaler: Podのレプリカ数を負荷に応じて自動的に増減
++ VerticalPodAutoscaler: Podに割り当てられているリソース(Request/Limits)を負荷に応じて自動的に増減
+
+```
+# HorizontalPodAutoscalerのマニフェスト定義例
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: sample-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: sample-deployment
+  minReplicas:1
+  maxReplicas:10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 50
+```
+
+実行CLI例:`kubectl autoscale deployment sample-deployment --cpu-percent=50 --min=1 --max=10`
