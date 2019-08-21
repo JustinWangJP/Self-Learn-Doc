@@ -129,3 +129,13 @@ spec:
     pdName: sample-pv-disk
     fsType: ext4
 ```
+
+5. Namespace作成
++ マニフェスト作成方：
+```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sample-namespace
+```
++ 実行CLI作成方:`kubectl create namespace sample-namespace`
