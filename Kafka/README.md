@@ -37,8 +37,7 @@
    ++ 强制自己在其Consumer Group内启动Rebalance流程
    
  4. Low Level Consumer
-   + 使用Low Level Consumer(Simple Consumer)的主要原因是，用户希望比Consumer Group更好的控制数据的消费，
-    如
+   + 使用Low Level Consumer(Simple Consumer)的主要原因是，用户希望比Consumer Group更好的控制数据的消费，如
    ++ 同一条消息读多次，方便Replay
    ++ 只消费某个Topic的部分Partition
    ++ 管理事务，从而确保每条消息被处理一次（Exactly Once）
