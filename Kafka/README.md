@@ -1,6 +1,6 @@
 1. Partitioner使用方法
    + Sample Hash Partitioner 
-   ```
+   ```java
       Public int partition(Object key, int numPartitions){
           if((key instanceof Integer)){
               return Math.abs(Integer.parseInt(key.toString()))%numPartitions;
@@ -9,7 +9,7 @@
       }
    ```
    + Round Robin Partitioner
-    ```
+    ```java
       private static AtomicLong next=new AtomicLong();
       
       Public int partition(Object key, int numPartitions){
@@ -27,7 +27,7 @@
    + 可同时使用Hadoop系统进行离线批处理，Storm或其他流处理系统进行流处理
    + 可使用kafka的Mirror Maker将消息从一个数据中心镜像到另一个数据中心
    + Consumer是绑定到partition上的，而不是消息。
- 
+
  3. High Level Consumer Rebalance
    + Consumer启动及Rebalance流程
       - zookeeper上的路径为/consumers/[consumer group]/ids/[consumer id]
@@ -46,3 +46,4 @@
       - 获取每个Partition的Leader
       - 处理Leader的变化
       - 处理多Consumer的协作
+   + 
