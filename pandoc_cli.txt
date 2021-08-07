@@ -1,0 +1,1 @@
+pandoc -f markdown README.md --wrap=none --toc --reference-links -s -t asciidoc -o kubernetes.adoc
