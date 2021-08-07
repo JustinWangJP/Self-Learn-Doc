@@ -13,22 +13,22 @@ link:++https://www.youtube.com/watch?v=H7641kZMghg&t=16s++[Youtube WebSeminar]
 
 '''
 === イベントバス種類
-image::eventbus_support_types.png[align="left"]
+image::images/eventbus_support_types.png[align="left"]
 
 === EventBridgeアーキテクチャ
-image::eventbus_arch.png[align="left"]
+image::images/eventbus_arch.png[align="left"]
 
 ==== Targetサポート範囲
-image::eventbus_customize_targets.png[align="left"]
+image::images/eventbus_customize_targets.png[align="left"]
 
 === 活用例
-image::eventbus_support_example.png[align="left"]
+image::images/eventbus_support_example.png[align="left"]
 
 === 使い分け例
-image::eventbus_support_example2.png[align="left"]
+image::images/eventbus_support_example2.png[align="left"]
 
 === 価格
-image::eventbus_price.png[align="left"]
+image::images/eventbus_price.png[align="left"]
 
 
 
